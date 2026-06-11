@@ -1,0 +1,18 @@
+@let titleId = `title-${book().isbn}`;
+
+
+<article class="book-card">
+  <img alt="Buchcover"
+       [src]="book().imageUrl"
+       [aria-describedby]="titleId" ]/>
+  <header>
+    <h2>{{ book().title }}</h2>
+  </header>
+  <div>
+    @if (book().subtitle!=null){
+      <p role="doc-subtitle">{{ book().subtitle }}</p>
+    }
+    ISBN:{{ book().isbn}}
+  </div>
+  <!-- Hier werden die Bücher angezeigt -->
+</article>
