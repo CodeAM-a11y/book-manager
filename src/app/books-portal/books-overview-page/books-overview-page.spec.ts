@@ -23,6 +23,14 @@ describe('BooksOverviewPage', () => {
   it('should have 2 books with correct titles', ()=>{
     const books =component['books']();
     expect(books).toHaveLength(2);
+    expect(books[0].title).toBe('Tiersich gut kochen');
+    expect(books[1].title).toBe('Backen mit Affen');
+  });
+  it('should render the correct bookt titles');()=>{
+    const hostEl: HTMLElement = fixture.nativeElement;
+    const articleEls =hostEl.querySelectorAll('article');
+
+    expect(articleEls).toHaveLength(2);
     expect
-  })
+  }
 });
