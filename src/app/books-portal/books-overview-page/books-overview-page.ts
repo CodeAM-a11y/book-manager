@@ -10,6 +10,22 @@ import {BookCard} from '../book-card/book-card';
 })
 export class BooksOverviewPage {
   protected books = signal<Book[]>([]);
+  protected likedBooks = signal<Book[]>([]);
+
+  addLikedBook(newLikedBook: Book) {
+    const foundBook =this.likedBooks().find(
+      (b)=>b.isbn ===newLikedBook.isbn
+    );
+    if(!foundBook){
+      this.likedBooks.update((likedBooks)=>[
+        ...likedBooks,
+        newLikedBook
+      ]);
+    }
+  }
+  clearLikedBooks() {
+    this.likedBooks.set([]);
+  }
   constructor() {
     this.books.set([
       {

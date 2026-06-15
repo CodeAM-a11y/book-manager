@@ -31,10 +31,14 @@ describe('BookCard', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  it('')
+  it('should render book title and isbn',()=>{
+    const  hostEl: HTMLElement =fixture.nativeElement;
+    expect(hostEl.textContent).toContain(testBook().isbn);
+    expect(hostEl.textContent).toContain(testBook().title);
+  });
   it('should display the correct image', ()=>{
     const hostEl:HTMLElement= fixture.nativeElement;
-    const imagEl =hostEl.querySelectorAll('img');
+    const imagEl =hostEl.querySelector('img');
     expect(imagEl).toBeTruthy();
     expect(imagEl?.src).toBe(testBook().imageUrl);
   });
