@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { inputBinding, signal} from '@angular/core';
+import { inputBinding, signal,outputBinding} from '@angular/core';
+import { Mock } from 'vitest';
 import {Book} from '../../shared/book';
 
 import { BookCard } from './book-card';
@@ -7,6 +8,7 @@ import { BookCard } from './book-card';
 describe('BookCard', () => {
   let component: BookCard;
   let fixture: ComponentFixture<BookCard>;
+  let likeFn: Mock;
   const testBook =signal<Book>({
     isbn:'1234567890123',
     title: 'Test Book',
@@ -17,12 +19,16 @@ describe('BookCard', () => {
   });
 
   beforeEach(async () => {
+    likeFn = vi.fn();
     await TestBed.configureTestingModule({
       imports: [BookCard],
     }).compileComponents();
 
     fixture = TestBed.createComponent(BookCard, {
-      bindings:[inputBinding('book',testBook)]
+      bindings:[
+        inputBinding('book',testBook),
+      outputBinding('like',likeFn)
+      ]
     });
     component = fixture.componentInstance;
     await fixture.whenStable();
@@ -42,4 +48,10 @@ describe('BookCard', () => {
     expect(imagEl).toBeTruthy();
     expect(imagEl?.src).toBe(testBook().imageUrl);
   });
+  it('should emit the like event wit a book',()=>{
+    //Event manuell auslösen
+    component.likeBook();
+    //prüfen ob das Buch emittiert wurde
+    expect(likeFn).toHaveBeenCalledExactlyOnceWith(testBook());
+  })
 });
