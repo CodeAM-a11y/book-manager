@@ -16,6 +16,7 @@
   </div>
   <!-- Hier werden die Bücher angezeigt -->
   <footer>
+    <a [routerLink]="['details', book().isbn]">Details</a>
     <button type="button" class="secondary"
             (click)="likeBook()">Like</button>
   </footer>
