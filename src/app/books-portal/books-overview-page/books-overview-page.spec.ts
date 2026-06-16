@@ -46,4 +46,5 @@ describe('BooksOverviewPage', () => {
     expect(cardEls[0].textContent).toContain('Tierisch gut kochen');
     expect(cardEls[1].textContent).toContain('Backen mit Affen');
   });
+  it('should display a')
 });

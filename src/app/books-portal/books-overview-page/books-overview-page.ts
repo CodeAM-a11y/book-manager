@@ -1,4 +1,4 @@
-import { Component, signal,inject } from '@angular/core';
+import { Component,computed, signal,inject } from '@angular/core';
 import {Book} from '../../shared/book'
 import {BookCard} from '../book-card/book-card';
 import {BookStore} from '../../shared/book-store';
@@ -11,8 +11,18 @@ import {BookStore} from '../../shared/book-store';
 })
 export class BooksOverviewPage {
   #bookStore = inject(BookStore);
+
+  protected searchTerm =signal('');
   protected books = signal<Book[]>([]);
   protected likedBooks = signal<Book[]>([]);
+
+  protected filteredBooks = computed(()=>{
+    if (!this.searchTerm()){
+    return this.books();
+    }
+    const term =this.searchTerm().toLowerCase();
+  return this.books().filter((b)=>b.title.toLowerCase().includes(term));
+  });
 
   addLikedBook(newLikedBook: Book) {
     const foundBook =this.likedBooks().find(
