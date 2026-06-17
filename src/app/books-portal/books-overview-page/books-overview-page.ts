@@ -39,6 +39,6 @@ export class BooksOverviewPage {
     this.likedBooks.set([]);
   }
   constructor() {
-    this.books.set(this.#bookStore.getAll());
+    this.#bookStore.getAll().subscribe((books)=>{this.books.set(books);});
   }
 }

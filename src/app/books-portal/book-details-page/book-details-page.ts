@@ -1,8 +1,7 @@
-import { Component, inject , signal} from '@angular/core';
-import { Book} from '../../shared/book';
-import { ActivatedRoute } from '@angular/router';
+import { Component, computed, effect, inject, input, signal } from '@angular/core';
 import {BookStore} from '../../shared/book-store';
 import {RouterLink} from '@angular/router';
+import { Book } from '../../shared/book';
 
 @Component({
   selector: 'app-book-details-page',
@@ -11,15 +10,14 @@ import {RouterLink} from '@angular/router';
   styleUrl: './book-details-page.css',
 })
 export class BookDetailsPage {
-  #bookStore= inject(BookStore);
-  #route =inject(ActivatedRoute);
+  #bookStore = inject(BookStore);
 
-  protected book= signal<Book|undefined>(undefined);
+  readonly isbn=input.required<string>();
+  protected book = signal<Book|undefined>(undefined);
 
   constructor() {
-    const isbn =this.#route.snapshot.paramMap.get('isbn');
-    if(isbn!==null){
-      this.book.set(this.#bookStore.getSingle(isbn));
-    }
+    effect(() => {
+      this.#bookStore.getSingle(this.isbn()).subscribe(book => {this.book.set(book);});
+    });
   }
 }

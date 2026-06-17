@@ -1,32 +1,19 @@
-import { Service } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import { Book} from './book';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
 @Service()
 export class BookStore {
-  #books: Book[] = [
-    {
-      isbn: '12345',
-      title: 'Tierisch gut kochen',
-      authors: ['Mrs Chimp', 'Mr Gorilla'],
-      subtitle: 'Rezepte von Affe bis Zebra',
-      imageUrl: 'https://cdn.ng-buch.de/kochen.jpg',
-      description: 'Immer lecker und gut',
-      createdAt: new Date().toISOString(),
-    },
-    {
-      isbn: '67890',
-      title: 'Backen mit Affen',
-      authors: ['Orang Utan'],
-      subtitle: 'Bananenbrot und mehr',
-      imageUrl: 'https://cdn.ng-buch.de/kochen.jpg',
-      description: 'Immer lecker und gut',
-      createdAt: new Date().toISOString(),
-    }
-  ];
-  getAll(): Book[]{
-    return this.#books;
+  #http = inject(HttpClient);
+  #apiUrl ='https://api1.angular-buch.com';
+  getAll(): Observable<Book[]>{
+    return this.#http.get<Book[]>(`${this.#apiUrl}/books`);
   }
-  getSingle(isbn: string): Book| undefined{
-    return this.#books.find(book=>book.isbn===isbn);
+  getSingle(isbn: string): Observable<Book>{
+    return this.#http.get<Book>(`${this.#apiUrl}/books/${isbn}`);
+  }
+  remove(isbn: string):Observable<void>{
+    return this.#http.delete<void>(`${this.#apiUrl}/books/${isbn}`);
   }
 }
