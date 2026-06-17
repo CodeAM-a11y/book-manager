@@ -10,8 +10,8 @@ export class BookStore {
   getAll(): HttpResourceRef<Book[]>{
     return httpResource<Book[]>(()=>`${this.#apiUrl}/books`,{defaultValue:[]});
   }
-  getSingle(isbn: string): Observable<Book>{
-    return this.#http.get<Book>(`${this.#apiUrl}/books/${isbn}`);
+  getSingle(isbn: ()=>string): HttpResourceRef<Book|undefined>{
+    return httpResource<Book>( ()=>`${this.#apiUrl}/books/${isbn()}`);
   }
   remove(isbn: string):Observable<void>{
     return this.#http.delete<void>(`${this.#apiUrl}/books/${isbn}`);

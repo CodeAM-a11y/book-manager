@@ -14,18 +14,12 @@ export class BookDetailsPage {
   #router = inject(Router);
 
   readonly isbn=input.required<string>();
-  protected book = signal<Book|undefined>(undefined);
+  protected book = this.#bookStore.getSingle(()=>this.isbn());
 
   removeBook(){
     if (confirm('Delete this book?')){
       this.#bookStore.remove(this.isbn()).subscribe(()=>
       this.#router.navigate(['/books']));
     }
-  }
-
-  constructor() {
-    effect(() => {
-      this.#bookStore.getSingle(this.isbn()).subscribe(book => {this.book.set(book);});
-    });
   }
 }
