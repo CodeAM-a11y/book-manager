@@ -13,15 +13,18 @@ export class BooksOverviewPage {
   #bookStore = inject(BookStore);
 
   protected searchTerm =signal('');
-  protected books = signal<Book[]>([]);
+  protected books = this.#bookStore.getAll();
   protected likedBooks = signal<Book[]>([]);
 
   protected filteredBooks = computed(()=>{
-    if (!this.searchTerm()){
-    return this.books();
+    if (!this.books.hasValue()){
+    return [];
+    }
+    if(!this.searchTerm()){
+      return this.books.value();
     }
     const term =this.searchTerm().toLowerCase();
-  return this.books().filter((b)=>b.title.toLowerCase().includes(term));
+  return this.books.value().filter((b)=>b.title.toLowerCase().includes(term));
   });
 
   addLikedBook(newLikedBook: Book) {
@@ -38,7 +41,5 @@ export class BooksOverviewPage {
   clearLikedBooks() {
     this.likedBooks.set([]);
   }
-  constructor() {
-    this.#bookStore.getAll().subscribe((books)=>{this.books.set(books);});
-  }
+
 }
