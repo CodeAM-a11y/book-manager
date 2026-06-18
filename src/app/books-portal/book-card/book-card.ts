@@ -1,10 +1,11 @@
 import { Component, input,output } from '@angular/core';
 import { Book} from '../../shared/book';
 import { RouterLink } from '@angular/router';
+import {IsbnFormatPipe} from '../../shared/isbn-format-pipe';
 
 @Component({
   selector: 'app-book-card',
-  imports: [RouterLink],
+  imports: [RouterLink,IsbnFormatPipe],
   templateUrl: './book-card.html',
   styleUrl: './book-card.css',
 })

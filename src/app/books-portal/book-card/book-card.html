@@ -12,7 +12,7 @@
     @if (book().subtitle!=null){
       <p role="doc-subtitle">{{ book().subtitle }}</p>
     }
-    ISBN:{{ book().isbn}}
+    ISBN: {{ book().isbn| isbnFormat}}
   </div>
   <!-- Hier werden die Bücher angezeigt -->
   <footer>

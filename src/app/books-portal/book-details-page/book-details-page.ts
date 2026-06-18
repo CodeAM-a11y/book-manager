@@ -1,11 +1,12 @@
 import { Component, computed, effect, inject, input, signal } from '@angular/core';
 import {BookStore} from '../../shared/book-store';
 import { Router, RouterLink } from '@angular/router';
-import { Book } from '../../shared/book';
+import {DatePipe} from '@angular/common';
+import {IsbnFormatPipe} from '../../shared/isbn-format-pipe';
 
 @Component({
   selector: 'app-book-details-page',
-  imports: [RouterLink],
+  imports: [RouterLink, DatePipe,IsbnFormatPipe],
   templateUrl: './book-details-page.html',
   styleUrl: './book-details-page.css',
 })
