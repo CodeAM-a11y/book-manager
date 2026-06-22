@@ -4,12 +4,12 @@ import { BookDetailsPage} from './book-details-page/book-details-page';
 
 export const booksPortalRoutes: Routes = [
   {
-    path: 'books',
+    path: '',
     component: BooksOverviewPage,
     title: 'Books Overview',
   },
   {
-    path: 'books/details/:isbn',
+    path: 'details/:isbn',
     component: BookDetailsPage,
     title: 'Book Details',
   },

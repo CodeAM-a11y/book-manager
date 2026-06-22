@@ -17,15 +17,18 @@
   <button type="button" (click)="books.reload()" ) [aria-busy]="books.isLoading()" ]>
     Reload
   </button>
+  <div>
   <input type="search"
          [value]="searchTerm()"
          (input)="searchTerm.set($event.target.value)"
          placeholder="Search"
          aria-label="Search" />
-  <div>
-    @for (b of filteredBooks();track b.isbn){
+    @if (books.hasValue()) {
+    @for (b of books.value();track b.isbn){
       <app-book-card [book]="b"
       (like)="addLikedBook($event)"/>
+    }
+
     }
   </div>
 </section>
