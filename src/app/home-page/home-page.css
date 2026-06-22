@@ -7,7 +7,7 @@
   z-index: -1;
 
   /* WICHTIG: Ersetze 'mein-hintergrund.gif' mit deinem exakten Dateinamen! */
-  background-image: url('/giphy.gif');
+  background-image: url('/source.gif');
 
   background-position: center;
   background-repeat: no-repeat;

@@ -1,2 +1,17 @@
 <div class="gif-background"></div>
 <p>Welcome to the BookManager!</p>
+
+<section [aria-busy]="isLoaded()">
+  <label for="search">Search for books</label>
+  <input type="search" id="search"
+  (input)="searchTerm$.next($event.target.value)"/>
+  <ul>
+    @for (b of results();track b.isbn){
+      <li>
+        <a [routerLink]="['/books','details',b.isbn]">
+          {{b.title}}/{{b.isbn}}
+        </a>
+      </li>
+    }
+  </ul>
+</section>
